@@ -1,0 +1,39 @@
+Site oficial - samba.org
+
+#Cria a pasta no diretório Raiz e altera as permissões para leitura, escrita e execução de todos
+mkdir publica 
+chmod 777 publica
+
+#Verifica se modificou todas as permissões
+ls -l
+
+#Edita o arquivo de configuração
+nano /etc/samba/smb.conf
+
+#Acrescenta uma entrada no final para a pasta chamada publica
+[publica]
+path = /publica
+writable = yes
+guest ok = yes
+guest only = yes
+
+
+#Após alterar o arquivo de configuração necessário o restart
+# Samba é um serviço em segundo plano
+# Esse tipo de serviço é conhecido como daemon no linux
+# Para isso utilzia-se o systemctl, o serviço do samba no daeomon é o smbdsystem
+
+systemctl restart smbd
+
+
+#Para verificar o status
+systemctl status smbd
+
+#Para iniciar automático
+systemctl enable smbd
+
+
+#Para acessar do cliente Linux através da Rede
+\\ip\publica
+
+#pode pedir senha e será necessário cadastrar usuário no Linux com o mesmo nome do usuário do windows

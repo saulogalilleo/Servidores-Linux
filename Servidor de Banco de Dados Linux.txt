@@ -1,0 +1,31 @@
+#Primeiro verifica se existe o pacote par ainstalação
+apt search mysql-server
+
+
+# Em seguida faz a instalação
+apt install default-mysql-server
+
+#Para conectar-se com o banco comando 
+mysql -u root -p
+
+
+#Para listar os banco de dados
+show databases;
+
+#Para criar um banco de dados comando create database
+create database testedb;
+
+#Para usar o database use testedb;
+use testedb;
+
+#Para criar uma tabela Pessoa
+create table pessoas (PessoaID int, Nome varchar(50), sobrenome varchar(50), Endereco varchar(100), Cidade varchar(50));
+
+#Para inserir um registro na tabela
+insert into pessoas (PessoaID, Nome, Sobrenome, Endereco, Cidade) values (1, 'Carlos', 'da Silva', 'Av. Sem número', 'Jaboticabal');
+
+#Para Consultar os dados na tabela
+select * from pessoas;
+
+#Para sair
+exit;

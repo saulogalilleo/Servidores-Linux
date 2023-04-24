@@ -1,0 +1,35 @@
+#Verifica se os pacotes estão disponíveis
+apt search apache2
+
+#Instala o apache   # -y é para responder yes para as preguntas 
+apt install apache2 -y
+
+
+#Verificar se o serviço está rodando
+systemctl status apache2
+
+
+#ir até o diretório com a página padrão do apache
+cd /var/www/html
+
+#Remover a página padrão 
+rm index.html
+
+#Criar um arquivo index.html com o nano
+nano index.html
+
+#Após isso - Download do site exemplo no github
+google -> github denilsonbonatti
+Repositórios -> linux-site-dio
+EM CODE -> Botão direito em download zip e copia link
+
+#No repositório /var/www/html obtém o site com o wget
+wget <link do zip>
+unzip arquivo.zip
+
+#Após isso copiar os arquivos par pasta raiz do servidor
+cp * -R /var/www/html
+
+#Testar site
+
+
