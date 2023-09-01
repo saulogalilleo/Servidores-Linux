@@ -1,0 +1,76 @@
+#Atualiza a lista de pacotes
+apt-get update
+
+
+#pesquisa o pacote
+apt search isc-dhcp
+
+#instala o pacote 
+apt-get install isc-dhcp-server
+
+
+#Verifica se criou o arquivo isc-dhcp-server
+cat /etc/default/isc-dhcp-server
+
+
+#instala o pacote net-tools
+apt-get install net-tools
+
+
+#Verifica situação das instefaces de rede
+ifconfig
+#para o curso servidor DHCP 10.10.10.4
+
+#Abre o arquivo de configuração para informar a interface e o local do arquivo dhcpd
+nano /etc/default/isc-dhcp-server
+
+INTERFACESv4="enp0s3"
+INTERFACESv6=""
+
+
+############################### conteúdo do arquivo dhcpd.conf #####################
+
+log-facility local7; 						#Facilidade do log (local7)
+authoritative;							#Informa que esse é o servidor autoritativo
+
+# Especificando range para a rede 10.10.10.0/24
+
+subnet 10.10.10.0 netmask 255.255.255.0 {                       #Define o escopo e range do dhcp
+	range 10.10.10.30 10.10.10.254;
+	option routers 10.10.10.1;				#Qual roteador será utilizado para os clientes da rede (gateway)
+	option domain-name "empresa.com.br";			#nome do domínio
+	option domain-name-servers 10.10.10.2,10.10.10.3;       #Enderecos de servidor dns (local)
+	default-lease-time 1800;				#Tempo padrão que o cliente fica com o ip (padrão, max e min)
+	max-lease-time 7200;
+	min-lease-time 1000;
+}
+
+host desktop-linux {
+	hardware ethernet 08:00:27:cb:76:c8;
+	fixed-address 10.10.10.33;
+}
+
+#########################################################################################
+
+
+#abre o arquivo
+nano /etc/dhcp/dhcpd.conf
+
+#verifica o serviço se está rodando
+systemctl status dhcpd
+
+#Habilita o serviço durante o boot
+systemctl enable isc-dhcp-server
+
+#restarta o serviço
+systemctl restart isc-dhcp-server
+
+
+#testa uma máquina na rede para receber o endereço IP.
+
+
+
+
+
+
+
